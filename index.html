@@ -4,311 +4,141 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kinai — Análisis de movimiento con IA</title>
-  <meta name="description" content="Kinai: POC profesional para el análisis de movimiento deportivo (OHS y CMJ) con Visión por Computador e IA. Subes un vídeo, obtenes clasificación e informe automático." />
-  <meta name="author" content="David Franc Farràs" />
-  <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#0f172a" />
-  <!-- Open Graph -->
-  <meta property="og:title" content="Kinai — Análisis de movimiento con IA" />
-  <meta property="og:description" content="POC profesional: analiza OHS y CMJ desde vídeo, clasifica y genera informe automático." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://kinai.vercel.app/og.png" />
-  <meta property="og:url" content="https://kinai.vercel.app" />
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kinai — Análisis de movimiento con IA" />
-  <meta name="twitter:description" content="Sube un vídeo. Obtén análisis (OHS/CMJ) y recomendaciones." />
-  <meta name="twitter:image" content="https://kinai.vercel.app/og.png" />
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <!-- Tailwind (CDN) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     // 🎯 EDITA AQUÍ TUS URLS REALES
-    const OHS_URL = "https://kinai.onrender.com/";   // p.ej. https://ohs.kinai.xyz
-    const CMJ_URL = "https://YOUR_CMJ_URL.onrender.com";   // p.ej. https://cmj.kinai.xyz
+    const OHS_URL = "https://kinai.onrender.com/"; 
+    const CMJ_URL = "https://cmj-app.onrender.com"; 
 
-    // Tailwind config (colores y tipografía)
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ["Inter", "system-ui", "ui-sans-serif", "Arial"] },
+          fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
           colors: {
-            brand: {
-              50: "#eff6ff",
-              100: "#dbeafe",
-              200: "#bfdbfe",
-              300: "#93c5fd",
-              400: "#60a5fa",
-              500: "#3b82f6", // azul OHS
-              600: "#2563eb",
-              700: "#1d4ed8",
-              800: "#1e40af",
-              900: "#1e3a8a"
-            },
-            accent: {
-              500: "#22c55e", // verde CMJ
-              600: "#16a34a",
-              700: "#15803d"
-            }
-          },
+            brand: { 500: "#3b82f6", 600: "#2563eb" },
+            accent: { 500: "#22c55e", 600: "#16a34a" }
+          }
         }
-      },
-      darkMode: "media"
+      }
     };
   </script>
   <style>
-    /* Suaviza las animaciones */
-    .fade-up { animation: fadeUp .6s ease both; }
-    @keyframes fadeUp { from{opacity:0; transform: translateY(10px)} to{opacity:1; transform: translateY(0)}}
-    /* Efecto “glass” para tarjetas */
-    .glass { backdrop-filter: blur(8px); background: rgba(255,255,255,0.06); }
-    /* Contenedor mock de captura */
-    .frame {
-      background: radial-gradient(1200px 600px at 80% -20%, rgba(59,130,246,.25), transparent),
-                  linear-gradient(180deg, rgba(2,6,23,0) 0%, rgba(2,6,23,.8) 100%),
-                  #0b1220;
-      border: 1px solid rgba(255,255,255,.08);
-    }
+    html { scroll-behavior: smooth; }
+    .glass { backdrop-filter: blur(12px); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);}
+    iframe { background: rgba(15,23,42,0.9); }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand-600 selection:text-white">
+<body class="bg-slate-950 text-slate-100 font-sans">
   <!-- NAV -->
-  <header class="sticky top-0 z-50 bg-slate-950/70 backdrop-blur border-b border-white/5">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3 group">
-        <svg width="28" height="28" viewBox="0 0 24 24" class="text-brand-500 group-hover:text-brand-400 transition">
+  <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
+    <div class="mx-auto max-w-7xl px-4 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <!-- Logo SVG -->
+        <svg width="26" height="26" viewBox="0 0 24 24" class="text-brand-500">
           <path fill="currentColor" d="M12 2l3.5 6.5L22 10l-6.5 3.5L12 20l-3.5-6.5L2 10l6.5-1.5L12 2z"/>
         </svg>
         <span class="text-lg font-bold tracking-tight">Kinai</span>
       </a>
-      <nav class="hidden md:flex items-center gap-8 text-sm">
-        <a href="#proyecto" class="hover:text-brand-300">Proyecto</a>
-        <a href="#como-funciona" class="hover:text-brand-300">Cómo funciona</a>
-        <a href="#stack" class="hover:text-brand-300">Tecnología</a>
-        <a href="#faq" class="hover:text-brand-300">FAQ</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#proyecto" class="hover:text-brand-400">Proyecto</a>
+        <a href="#como-funciona" class="hover:text-brand-400">Cómo funciona</a>
+        <a href="#ohs-app" class="hover:text-brand-400">OHS</a>
+        <a href="#cmj-app" class="hover:text-brand-400">CMJ</a>
       </nav>
-      <div class="hidden md:flex items-center gap-3">
-        <a id="btnOHSTop" class="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-brand-600 hover:bg-brand-500 px-4 py-2 text-sm font-semibold">
-          <span>Analizar OHS</span>
-        </a>
-        <a id="btnCMJTop" class="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-accent-600 hover:bg-accent-500 px-4 py-2 text-sm font-semibold">
-          <span>Analizar CMJ</span>
-        </a>
-      </div>
-      <button id="menu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-white/5" aria-label="Abrir menú">
-        <svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2"/></svg>
-      </button>
-    </div>
-    <!-- Mobile menu -->
-    <div id="mobileNav" class="hidden md:hidden border-t border-white/5">
-      <div class="px-4 py-3 space-y-2">
-        <a href="#proyecto" class="block py-2">Proyecto</a>
-        <a href="#como-funciona" class="block py-2">Cómo funciona</a>
-        <a href="#stack" class="block py-2">Tecnología</a>
-        <a href="#faq" class="block py-2">FAQ</a>
-        <div class="flex gap-2 pt-2">
-          <a id="btnOHSMobile" class="flex-1 text-center rounded-lg bg-brand-600 hover:bg-brand-500 px-4 py-2 font-semibold">Analizar OHS</a>
-          <a id="btnCMJMobile" class="flex-1 text-center rounded-lg bg-accent-600 hover:bg-accent-500 px-4 py-2 font-semibold">Analizar CMJ</a>
-        </div>
-      </div>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10 bg-[radial-gradient(1000px_500px_at_80%_-10%,rgba(99,102,241,.25),transparent)]"></div>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-10">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="fade-up">
-          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-            Análisis de movimiento <span class="text-brand-400">con IA</span> para <br class="hidden sm:block"/>OHS y CMJ
-          </h1>
-          <p class="mt-5 text-slate-300 max-w-xl">
-            Subes un vídeo. Kinai extrae ángulos articulares, clasifica la ejecución y genera un informe automático claro y accionable.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a id="btnOHSHero" class="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-brand-600 hover:bg-brand-500 px-5 py-3 font-semibold">
-              <span>🔵 Análisis OHS</span>
-            </a>
-            <a id="btnCMJHero" class="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-accent-600 hover:bg-accent-500 px-5 py-3 font-semibold">
-              <span>🟢 Análisis CMJ</span>
-            </a>
-            <a href="#proyecto" class="inline-flex items-center gap-2 px-4 py-3 text-slate-300 hover:text-white">
-              Ver más ↓
-            </a>
-          </div>
-          <div class="mt-6 flex items-center gap-4 text-xs text-slate-400">
-            <span class="inline-flex items-center gap-1">
-              <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12c5.16-1.26 9-6.45 9-12V5l-9-4Z"/></svg>
-              POC TFM — Prevención de lesiones
-            </span>
-            <span class="inline-flex items-center gap-1">
-              <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20a8 8 0 1 1 8-8a8 8 0 0 1-8 8Z"/></svg>
-              Vídeo desde móvil
-            </span>
-          </div>
-        </div>
-        <div class="fade-up lg:justify-self-end">
-          <!-- Mock de captura / resultado -->
-          <div class="frame rounded-2xl p-4 sm:p-6 shadow-2xl w-full max-w-xl">
-            <div class="aspect-video rounded-xl border border-white/10 overflow-hidden relative">
-              <div class="absolute inset-0 grid place-items-center text-slate-400">
-                <div class="text-center px-6">
-                  <p class="text-sm uppercase tracking-widest text-slate-400 mb-2">Vista previa</p>
-                  <h3 class="text-lg font-semibold">Ángulos articulares + Clasificación</h3>
-                  <p class="text-sm mt-1">OHS / CMJ — POC</p>
-                </div>
-              </div>
-              <!-- overlays simulados -->
-              <div class="absolute top-4 left-4 bg-black/50 text-xs px-2 py-1 rounded-md">Rodilla: 95°</div>
-              <div class="absolute top-4 right-4 bg-black/50 text-xs px-2 py-1 rounded-md">Cadera: 85°</div>
-              <div class="absolute bottom-4 right-4 bg-brand-600 text-xs px-2 py-1 rounded-md">Pred: NORMAL</div>
-            </div>
-          </div>
-        </div>
+  <section class="relative pt-20 pb-16 text-center bg-gradient-to-b from-slate-900 via-slate-950 to-black">
+    <div class="mx-auto max-w-4xl px-4">
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+        Análisis de movimiento <span class="text-brand-500">con IA</span> para <br/> OHS y CMJ
+      </h1>
+      <p class="mt-4 text-slate-300">Subes un vídeo. Kinai extrae ángulos articulares, clasifica la ejecución y genera un informe automático claro y accionable.</p>
+      <div class="mt-8 flex justify-center gap-4">
+        <a href="#ohs-app" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold">🔵 Análisis OHS</a>
+        <a href="#cmj-app" class="px-6 py-3 rounded-xl bg-accent-600 hover:bg-accent-500 font-semibold">🟢 Análisis CMJ</a>
+      </div>
+      <div class="mt-6 flex items-center justify-center gap-6 text-xs text-slate-400">
+        <span>📌 POC TFM — Prevención de lesiones</span>
+        <span>📱 Vídeo desde móvil</span>
       </div>
     </div>
   </section>
 
   <!-- PROYECTO -->
-  <section id="proyecto" class="py-16 sm:py-20 border-t border-white/5">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="md:col-span-2">
-          <h2 class="text-2xl sm:text-3xl font-bold">¿Qué es Kinai?</h2>
-          <p class="mt-4 text-slate-300">
-            Prueba de concepto (POC) que aplica Visión por Computador y Aprendizaje Automático para evaluar la técnica en ejercicios funcionales. 
-            Se centra en <strong>Overhead Squat (OHS)</strong> y <strong>Countermovement Jump (CMJ)</strong>: cuantifica ángulos, clasifica la ejecución y genera recomendaciones.
-          </p>
-          <ul class="mt-6 grid sm:grid-cols-2 gap-3">
-            <li class="glass rounded-xl p-4">✅ Detección de puntos clave y cálculo de ángulos</li>
-            <li class="glass rounded-xl p-4">✅ Clasificación (Bien/Normal/Mal) y/o métricas CMJ</li>
-            <li class="glass rounded-xl p-4">✅ Informe automático comprensible</li>
-            <li class="glass rounded-xl p-4">✅ Enfoque accesible: vídeo desde móvil</li>
-          </ul>
-        </div>
-        <aside class="glass rounded-2xl p-6">
-          <h3 class="font-semibold">Objetivo</h3>
-          <p class="mt-2 text-slate-300 text-sm">
-            Explorar el potencial de la IA para apoyar la prevención de lesiones y la readaptación, acercando la analítica de movimiento a contextos amateur/pro.
-          </p>
-          <div class="mt-6">
-            <a id="btnOHSSide" class="cursor-pointer block text-center rounded-xl bg-brand-600 hover:bg-brand-500 px-4 py-3 font-semibold">Probar OHS</a>
-            <a id="btnCMJSide" class="cursor-pointer block text-center rounded-xl bg-accent-600 hover:bg-accent-500 px-4 py-3 font-semibold mt-2">Probar CMJ</a>
-          </div>
-        </aside>
+  <section id="proyecto" class="py-16 border-t border-white/5">
+    <div class="mx-auto max-w-6xl px-4 grid md:grid-cols-3 gap-6 items-start">
+      <div class="md:col-span-2">
+        <h2 class="text-2xl sm:text-3xl font-bold">¿Qué es Kinai?</h2>
+        <p class="mt-4 text-slate-300">
+          Prueba de concepto (POC) que aplica Visión por Computador y Aprendizaje Automático para evaluar la técnica en ejercicios funcionales. 
+          Se centra en <strong>Overhead Squat (OHS)</strong> y <strong>Countermovement Jump (CMJ)</strong>: cuantifica ángulos, clasifica la ejecución y genera recomendaciones.
+        </p>
+        <ul class="mt-6 grid sm:grid-cols-2 gap-3">
+          <li class="glass rounded-xl p-4">✅ Detección de puntos clave y cálculo de ángulos</li>
+          <li class="glass rounded-xl p-4">✅ Clasificación (Bien/Normal/Mal) y métricas CMJ</li>
+          <li class="glass rounded-xl p-4">✅ Informe automático comprensible</li>
+          <li class="glass rounded-xl p-4">✅ Enfoque accesible: vídeo desde móvil</li>
+        </ul>
       </div>
+      <aside class="glass rounded-2xl p-6">
+        <h3 class="font-semibold">Objetivo</h3>
+        <p class="mt-2 text-slate-300 text-sm">
+          Explorar el potencial de la IA para apoyar la prevención de lesiones y la readaptación, acercando la analítica de movimiento a contextos amateur/pro.
+        </p>
+        <div class="mt-6 space-y-2">
+          <a href="#ohs-app" class="block text-center rounded-xl bg-brand-600 hover:bg-brand-500 px-4 py-3 font-semibold">Probar OHS</a>
+          <a href="#cmj-app" class="block text-center rounded-xl bg-accent-600 hover:bg-accent-500 px-4 py-3 font-semibold">Probar CMJ</a>
+        </div>
+      </aside>
     </div>
   </section>
 
   <!-- CÓMO FUNCIONA -->
-  <section id="como-funciona" class="py-16 sm:py-20 bg-slate-900/40 border-y border-white/5">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-center">Cómo funciona</h2>
+  <section id="como-funciona" class="py-16 bg-slate-900/40 border-y border-white/5">
+    <div class="mx-auto max-w-6xl px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold">Cómo funciona</h2>
       <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <div class="glass rounded-2xl p-6">
-          <div class="text-brand-300 mb-3">①</div>
-          <h3 class="font-semibold">Sube tu vídeo</h3>
-          <p class="mt-2 text-slate-300 text-sm">Grabado con móvil; plano estable. La app procesa el archivo de forma segura.</p>
-        </div>
-        <div class="glass rounded-2xl p-6">
-          <div class="text-brand-300 mb-3">②</div>
-          <h3 class="font-semibold">Extrae y clasifica</h3>
-          <p class="mt-2 text-slate-300 text-sm">Se estiman ángulos articulares y se aplica el modelo (OHS/CMJ).</p>
-        </div>
-        <div class="glass rounded-2xl p-6">
-          <div class="text-brand-300 mb-3">③</div>
-          <h3 class="font-semibold">Informe inmediato</h3>
-          <p class="mt-2 text-slate-300 text-sm">Recibes observaciones y recomendaciones claras.</p>
-        </div>
+        <div class="glass rounded-xl p-6">① Subes tu vídeo grabado con móvil.</div>
+        <div class="glass rounded-xl p-6">② Se extraen ángulos y se aplica el modelo OHS/CMJ.</div>
+        <div class="glass rounded-xl p-6">③ Obtienes un informe automático con observaciones.</div>
       </div>
     </div>
   </section>
 
-  <!-- STACK -->
-  <section id="stack" class="py-16 sm:py-20">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-center">Tecnología</h2>
-      <p class="mt-4 text-center text-slate-300">Python · Streamlit · scikit-learn · MediaPipe/OpenCV · Render · Vercel</p>
-      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="glass rounded-2xl p-5">Modelos clásicos (RF/Árbol/SVM) para OHS y reglas/métricas para CMJ.</div>
-        <div class="glass rounded-2xl p-5">Extracción de keypoints/ángulos desde vídeo accesible.</div>
-        <div class="glass rounded-2xl p-5">Despliegue: Render (apps) + Vercel (landing).</div>
+  <!-- DEMO OHS -->
+  <section id="ohs-app" class="py-16">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center">Demo OHS</h2>
+      <p class="mt-2 text-center text-slate-400">Sube tu vídeo y prueba el análisis de sentadilla.</p>
+      <div class="mt-8 relative rounded-2xl overflow-hidden shadow-xl glass p-1">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 to-slate-950/60 z-0"></div>
+        <iframe src="https://ohs-app.onrender.com" class="relative z-10 w-full h-[700px] border-0 rounded-xl"></iframe>
       </div>
     </div>
   </section>
 
-  <!-- CTA DEMO -->
-  <section id="demo" class="py-16 sm:py-20 bg-gradient-to-b from-slate-900/60 to-slate-950 border-t border-white/5">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-2xl sm:text-3xl font-bold">Prueba la demo</h2>
-      <p class="mt-3 text-slate-300">Selecciona el análisis que quieras ejecutar:</p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a id="btnOHSBottom" class="cursor-pointer inline-flex items-center gap-3 rounded-2xl bg-brand-600 hover:bg-brand-500 px-6 py-4 text-lg font-semibold">🔵 Análisis OHS</a>
-        <a id="btnCMJBottom" class="cursor-pointer inline-flex items-center gap-3 rounded-2xl bg-accent-600 hover:bg-accent-500 px-6 py-4 text-lg font-semibold">🟢 Análisis CMJ</a>
-      </div>
-      <p class="mt-4 text-xs text-slate-400">* Al hacer clic se abrirá una nueva pestaña con la app.</p>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="py-16 sm:py-20">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-center">Preguntas frecuentes</h2>
-      <div class="mt-8 space-y-4">
-        <details class="glass rounded-xl p-5">
-          <summary class="font-semibold cursor-pointer">¿Qué calidad de vídeo necesito?</summary>
-          <p class="mt-2 text-slate-300 text-sm">Con un móvil reciente es suficiente. Ideal plano lateral estable y buena iluminación.</p>
-        </details>
-        <details class="glass rounded-xl p-5">
-          <summary class="font-semibold cursor-pointer">¿Se guardan mis vídeos?</summary>
-          <p class="mt-2 text-slate-300 text-sm">POC académico: los archivos se procesan para el análisis y no se publican. Ajustable según despliegue.</p>
-        </details>
-        <details class="glass rounded-xl p-5">
-          <summary class="font-semibold cursor-pointer">¿El informe sustituye a un profesional?</summary>
-          <p class="mt-2 text-slate-300 text-sm">No. Es una herramienta de apoyo que facilita la interpretación y el seguimiento.</p>
-        </details>
+  <!-- DEMO CMJ -->
+  <section id="cmj-app" class="py-16 bg-slate-900/40 border-t border-white/5">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center">Demo CMJ</h2>
+      <p class="mt-2 text-center text-slate-400">Prueba el análisis del salto con contramovimiento.</p>
+      <div class="mt-8 relative rounded-2xl overflow-hidden shadow-xl glass p-1">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 to-slate-950/60 z-0"></div>
+        <iframe src="https://cmj-app.onrender.com" class="relative z-10 w-full h-[700px] border-0 rounded-xl"></iframe>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-white/5 py-10">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-sm text-slate-400">© <span id="year"></span> Kinai — Proyecto de David Franc Farràs</p>
-      <div class="flex items-center gap-4 text-sm">
-        <a href="#proyecto" class="hover:text-white">Proyecto</a>
-        <a href="#demo" class="hover:text-white">Demo</a>
-        <a href="#faq" class="hover:text-white">FAQ</a>
-        <a href="https://github.com/dfrancfarras" target="_blank" rel="noopener" class="hover:text-white">GitHub</a>
-      </div>
-    </div>
+  <footer class="py-10 border-t border-white/5 text-center text-slate-400 text-sm">
+    © <span id="year"></span> Kinai | Proyecto de David Franc Farràs
   </footer>
 
   <script>
-    // Año en footer
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Enlaces CTA centralizados
-    const openOHS = () => window.open(OHS_URL, "_blank", "noopener");
-    const openCMJ = () => window.open(CMJ_URL, "_blank", "noopener");
-
-    ["btnOHSHero","btnOHSBottom","btnOHSSide","btnOHSTop","btnOHSMobile"].forEach(id=>{
-      const el = document.getElementById(id); if (el) el.addEventListener("click", openOHS);
-    });
-    ["btnCMJHero","btnCMJBottom","btnCMJSide","btnCMJTop","btnCMJMobile"].forEach(id=>{
-      const el = document.getElementById(id); if (el) el.addEventListener("click", openCMJ);
-    });
-
-    // Mobile menu
-    const menuBtn = document.getElementById("menu");
-    const mobileNav = document.getElementById("mobileNav");
-    if (menuBtn && mobileNav) {
-      menuBtn.addEventListener("click", () => mobileNav.classList.toggle("hidden"));
-    }
   </script>
 </body>
 </html>
