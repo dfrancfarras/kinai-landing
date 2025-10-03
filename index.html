@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kinai — Análisis de movimiento con IA</title>
+  <title>Kinai — Análisis de movimiento deportivo con IA</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     // 🎯 EDITA AQUÍ TUS URLS REALES
-    const OHS_URL = "https://kinai.onrender.com/"; 
+    const OHS_URL = "https://dabixanalytics-kinai-ohs.hf.space"; 
     const CMJ_URL = "https://cmj-app.onrender.com"; 
 
     tailwind.config = {
@@ -53,17 +53,23 @@
   <section class="relative pt-20 pb-16 text-center bg-gradient-to-b from-slate-900 via-slate-950 to-black">
     <div class="mx-auto max-w-4xl px-4">
       <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
-        Análisis de movimiento <span class="text-brand-500">con IA</span> para <br/> OHS y CMJ
-      </h1>
-      <p class="mt-4 text-slate-300">Subes un vídeo. Kinai extrae ángulos articulares, clasifica la ejecución y genera un informe automático claro y accionable.</p>
+        <!--Análisis de movimiento <span class="text-brand-500">con IA</span> para <br/> evaluación y prevención de lesiones -->
+        KIN<span class="text-brand-500">AI</span> - <br/> Evaluación y prevención de lesiones
+      </h1> 
+      <!-- <p class="mt-4 text-slate-300">Subes un vídeo. Kinai extrae ángulos articulares, clasifica la ejecución y genera un informe automático claro y accionable.</p> -->
+       <p class="mt-4 text-slate-300">Convierte un simple vídeo en métricas articulares, clasificación técnica y un informe automático para prevención de lesiones.</p>
+
       <div class="mt-8 flex justify-center gap-4">
-        <a href="#ohs-app" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold">🔵 Análisis OHS</a>
-        <a href="#cmj-app" class="px-6 py-3 rounded-xl bg-accent-600 hover:bg-accent-500 font-semibold">🟢 Análisis CMJ</a>
-      </div>
-      <div class="mt-6 flex items-center justify-center gap-6 text-xs text-slate-400">
-        <span>📌 POC TFM — Prevención de lesiones</span>
-        <span>📱 Vídeo desde móvil</span>
-      </div>
+        <a href="#ohs-app"
+          class="px-6 py-3 rounded-xl glass border border-brand-500/40 text-brand-400 hover:bg-brand-500/20 transition font-semibold">
+          Overhead Squat
+        </a>
+        <a href="#cmj-app"
+          class="px-6 py-3 rounded-xl glass border border-accent-500/40 text-accent-400 hover:bg-accent-500/20 transition font-semibold">
+          Counter Movement Jump
+        </a>
+    </div>
+
     </div>
   </section>
 
@@ -72,15 +78,24 @@
     <div class="mx-auto max-w-6xl px-4 grid md:grid-cols-3 gap-6 items-start">
       <div class="md:col-span-2">
         <h2 class="text-2xl sm:text-3xl font-bold">¿Qué es Kinai?</h2>
+
         <p class="mt-4 text-slate-300">
-          Prueba de concepto (POC) que aplica Visión por Computador y Aprendizaje Automático para evaluar la técnica en ejercicios funcionales. 
-          Se centra en <strong>Overhead Squat (OHS)</strong> y <strong>Countermovement Jump (CMJ)</strong>: cuantifica ángulos, clasifica la ejecución y genera recomendaciones.
+          Kinai es una <strong>prueba de concepto (POC)</strong> desarrollada en el marco de un Trabajo de Fin de Máster en Inteligencia Artificial. 
+          Su objetivo es <strong>analizar la técnica en ejercicios funcionales mediante Visión por Computador y Aprendizaje Automático</strong>, 
+          aportando métricas objetivas y accesibles a partir de un simple vídeo.
         </p>
+        <p class="mt-4 text-slate-300">
+          El sistema se centra en dos movimientos de referencia: <strong>Overhead Squat (OHS)</strong> y <strong>Countermovement Jump (CMJ)</strong>. 
+          A partir de ellos, Kinai <strong>extrae ángulos articulares, clasifica la ejecución y genera un informe automático</strong> que puede servir como apoyo en la 
+          <strong>prevención de lesiones y la readaptación deportiva</strong>.
+        </p>
+
+
         <ul class="mt-6 grid sm:grid-cols-2 gap-3">
-          <li class="glass rounded-xl p-4">✅ Detección de puntos clave y cálculo de ángulos</li>
-          <li class="glass rounded-xl p-4">✅ Clasificación (Bien/Normal/Mal) y métricas CMJ</li>
-          <li class="glass rounded-xl p-4">✅ Informe automático comprensible</li>
-          <li class="glass rounded-xl p-4">✅ Enfoque accesible: vídeo desde móvil</li>
+          <li class="glass rounded-xl p-4">✅ Basado en técnicas de IA aplicadas al movimiento humano.</li>
+          <li class="glass rounded-xl p-4">✅ Métricas objetivas y comprensibles desde vídeo grabado con móvil.</li>
+          <li class="glass rounded-xl p-4">✅ Orientado a la prevención de lesiones y la readaptación funcional.</li>
+          <li class="glass rounded-xl p-4">✅ Enfoque práctico para ámbito amateur/pro</li>
         </ul>
       </div>
       <aside class="glass rounded-2xl p-6">
@@ -88,10 +103,18 @@
         <p class="mt-2 text-slate-300 text-sm">
           Explorar el potencial de la IA para apoyar la prevención de lesiones y la readaptación, acercando la analítica de movimiento a contextos amateur/pro.
         </p>
+
         <div class="mt-6 space-y-2">
-          <a href="#ohs-app" class="block text-center rounded-xl bg-brand-600 hover:bg-brand-500 px-4 py-3 font-semibold">Probar OHS</a>
-          <a href="#cmj-app" class="block text-center rounded-xl bg-accent-600 hover:bg-accent-500 px-4 py-3 font-semibold">Probar CMJ</a>
+          <a href="#ohs-app"
+            class="block text-center rounded-xl glass border border-brand-500/40 text-brand-400 hover:bg-brand-500/20 transition font-semibold px-4 py-3">
+            Evaluar OHS
+          </a>
+          <a href="#cmj-app"
+            class="block text-center rounded-xl glass border border-accent-500/40 text-accent-400 hover:bg-accent-500/20 transition font-semibold px-4 py-3">
+            Evaluar CMJ
+          </a>
         </div>
+
       </aside>
     </div>
   </section>
@@ -109,36 +132,113 @@
   </section>
 
   <!-- DEMO OHS -->
-  <section id="ohs-app" class="py-16">
-    <div class="mx-auto max-w-6xl px-4">
-      <h2 class="text-2xl sm:text-3xl font-bold text-center">Demo OHS</h2>
-      <p class="mt-2 text-center text-slate-400">Sube tu vídeo y prueba el análisis de sentadilla.</p>
+  <section id="ohs-app" class="py-16 hidden">
+    <div class="mx-auto max-w-6xl px-4 relative">
+      <button onclick="closeSection('ohs-app','iframeOHS')" 
+              class="absolute top-0 right-0 text-slate-400 hover:text-red-500 text-xl">✖</button>
+      <h2 class="text-2xl sm:text-3xl font-bold text-center">Análisis Overhead Squat</h2>
+      <p class="mt-2 text-center text-slate-400">Sube tu vídeo y evalua tu ejecución.</p>
       <div class="mt-8 relative rounded-2xl overflow-hidden shadow-xl glass p-1">
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 to-slate-950/60 z-0"></div>
-        <iframe src="https://ohs-app.onrender.com" class="relative z-10 w-full h-[700px] border-0 rounded-xl"></iframe>
+        <iframe id="iframeOHS" src="about:blank" class="relative w-full h-[700px] border-0 rounded-xl"></iframe>
       </div>
     </div>
   </section>
 
-  <!-- DEMO CMJ -->
-  <section id="cmj-app" class="py-16 bg-slate-900/40 border-t border-white/5">
-    <div class="mx-auto max-w-6xl px-4">
-      <h2 class="text-2xl sm:text-3xl font-bold text-center">Demo CMJ</h2>
-      <p class="mt-2 text-center text-slate-400">Prueba el análisis del salto con contramovimiento.</p>
+ <!-- DEMO CMJ -->
+  <section id="cmj-app" class="py-16 bg-slate-900/40 border-t border-white/5 hidden">
+    <div class="mx-auto max-w-6xl px-4 relative">
+      <button onclick="closeSection('cmj-app','iframeCMJ')" 
+              class="absolute top-0 right-0 text-slate-400 hover:text-red-500 text-xl">✖</button>
+      <h2 class="text-2xl sm:text-3xl font-bold text-center">Análisis Counter Movement Jump</h2>
+      <p class="mt-2 text-center text-slate-400">Sube tu vídeo y evalua tu ejecución.</p>
       <div class="mt-8 relative rounded-2xl overflow-hidden shadow-xl glass p-1">
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 to-slate-950/60 z-0"></div>
-        <iframe src="https://cmj-app.onrender.com" class="relative z-10 w-full h-[700px] border-0 rounded-xl"></iframe>
+        <iframe id="iframeCMJ" src="about:blank" class="relative w-full h-[700px] border-0 rounded-xl"></iframe>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-10 border-t border-white/5 text-center text-slate-400 text-sm">
+<footer class="py-10 border-t border-white/5 text-center text-slate-400 text-sm flex flex-col items-center gap-2">
+  <div>
     © <span id="year"></span> Kinai | Proyecto de David Franc Farràs
-  </footer>
+  </div>
+  <div class="flex items-center gap-3">
+    <a href="https://www.linkedin.com/in/davidfrancfarras/" target="_blank" class="hover:text-brand-400 transition">
+      <!-- Icono LinkedIn (SVG) -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 
+                 2.761 2.239 5 5 5h14c2.761 0 5-2.239 
+                 5-5v-14c0-2.761-2.239-5-5-5zm-11 
+                 19h-3v-10h3v10zm-1.5-11.268c-.966 
+                 0-1.75-.79-1.75-1.764s.784-1.764 
+                 1.75-1.764 1.75.79 1.75 1.764-.784 
+                 1.764-1.75 1.764zm13.5 
+                 11.268h-3v-5.604c0-1.337-.026-3.059-1.865-3.059-1.868 
+                 0-2.155 1.459-2.155 2.965v5.698h-3v-10h2.881v1.367h.041c.401-.761 
+                 1.379-1.562 2.84-1.562 3.04 
+                 0 3.6 2.002 3.6 4.604v5.591z"/>
+      </svg>
+    </a>
+  </div>
+</footer>
+
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const showSection = (idToShow, iframeId, url) => {
+      const ohsSection = document.getElementById("ohs-app");
+      const cmjSection = document.getElementById("cmj-app");
+      const iframeOHS = document.getElementById("iframeOHS");
+      const iframeCMJ = document.getElementById("iframeCMJ");
+
+      // Ocultar ambas secciones
+      ohsSection.classList.add("hidden");
+      cmjSection.classList.add("hidden");
+
+      // Descargar iframes para liberar recursos
+      iframeOHS.src = "about:blank";
+      iframeCMJ.src = "about:blank";
+
+      // Mostrar la sección seleccionada
+      const section = document.getElementById(idToShow);
+      section.classList.remove("hidden");
+
+      // Cargar la URL correspondiente
+      const iframe = document.getElementById(iframeId);
+      iframe.src = url;
+
+      // Scroll suave
+      section.scrollIntoView({ behavior: "smooth" });
+    };
+
+      const closeSection = (idSection, idIframe) => {
+      const section = document.getElementById(idSection);
+      const iframe = document.getElementById(idIframe);
+
+      iframe.src = "about:blank"; // limpia iframe
+      section.classList.add("hidden"); // oculta sección
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // Botones OHS
+    document.querySelectorAll('a[href="#ohs-app"]').forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        showSection("ohs-app", "iframeOHS", OHS_URL);
+      });
+    });
+
+    // Botones CMJ
+    document.querySelectorAll('a[href="#cmj-app"]').forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        showSection("cmj-app", "iframeCMJ", CMJ_URL);
+      });
+    });
   </script>
 </body>
 </html>
+
+
+
